@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
 public class Studente {
-    
     private String nome;
     private String cognome;
     private String matricola;           
@@ -41,28 +39,26 @@ public class Studente {
         this.cognome = cognome;
     }
 
-    public String getMatricola() {
-        return matricola;
+    public String getEmailIstituzionale() {
+        return emailIstituzionale;
     }
 
     public void setEmailIstituzionale(String emailIstituzionale) {
         this.emailIstituzionale = emailIstituzionale;
     }
 
-    public List<Prestito> getPrestitiAttivi() {
-        return new ArrayList<>(prestitiAttivi);
-    }
-    
-    void aggiungiPrestito(Prestito p) {
+    public String getMatricola() {
+        return matricola;
     }
 
-    void chiudiPrestito(Prestito p) {
+    public List<Prestito> getPrestitiAttivi() {
+        return prestitiAttivi;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.matricola);
+        hash = 37 * hash + Objects.hashCode(this.matricola);
         return hash;
     }
 
@@ -83,7 +79,6 @@ public class Studente {
         }
         return true;
     }
-    
-    
+
     
 }

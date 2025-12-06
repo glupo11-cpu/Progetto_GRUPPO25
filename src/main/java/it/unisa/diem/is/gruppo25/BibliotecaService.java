@@ -6,29 +6,26 @@
 package it.unisa.diem.is.gruppo25;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class BibliotecaService {
-private Map<String, Libro> libriPerIsbn = new HashMap<>();
+
+    private Map<String, Libro> libriPerIsbn = new HashMap<>();
     private Map<String, Studente> studentiPerMatricola = new HashMap<>();
     private List<Prestito> prestiti = new ArrayList<>();
 
 
-
     public void inserisciLibro(Libro libro) {
-
+        
     }
 
     public void modificaLibro(String codiceIsbn, String nuovoTitolo, String nuovoAutore, Integer nuovoAnno, Integer nuoveCopie) {
-
+        
     }
 
     public void eliminaLibro(String codiceIsbn) {
-    
+        
     }
 
     public List<Libro> cercaLibri(String titolo, String autore, String codiceIsbn) {
@@ -45,20 +42,19 @@ private Map<String, Libro> libriPerIsbn = new HashMap<>();
 
 
 
-    public void inserisciStudente(Studente studente) {
-
+    public void inserisciStudente(Studente studente) {   
     }
 
     public void modificaStudente(String matricola, String nuovoNome, String nuovoCognome, String nuovaEmail) {
-
+        
     }
 
     public void eliminaStudente(String matricola) {
-
+        
     }
 
     public List<Studente> cercaStudente(String cognome, String matricola) {
-        return null;
+        return null; 
     }
 
     public List<Studente> elencoStudentiOrdinati() {
@@ -66,7 +62,7 @@ private Map<String, Libro> libriPerIsbn = new HashMap<>();
     }
 
     private Studente getStudenteByMatricola(String matricola) {
-        return null;
+        return null; 
     }
 
 
@@ -76,6 +72,7 @@ private Map<String, Libro> libriPerIsbn = new HashMap<>();
     }
 
     public void registraRestituzione(Prestito prestito, LocalDate dataRestituzione) {
+        
     }
 
     public List<Prestito> elencoPrestitiAttiviOrdinatiPerDataPrevista() {
@@ -84,5 +81,5 @@ private Map<String, Libro> libriPerIsbn = new HashMap<>();
 
     public List<Prestito> cercaPrestiti(String matricolaStudente, String codiceIsbn) {
         return null; 
-    }   
+    }
 }

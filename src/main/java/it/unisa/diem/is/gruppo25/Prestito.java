@@ -8,7 +8,6 @@ package it.unisa.diem.is.gruppo25;
 import java.time.LocalDate;
 
 
-
 public class Prestito {
     
     private final Studente studente;
@@ -16,29 +15,48 @@ public class Prestito {
     private final LocalDate dataInizio;
     private final LocalDate dataPrevistaRestituzione;
     private LocalDate dataRestituzioneEffettiva;
-    
+
     public Prestito(Studente studente, Libro libro, LocalDate dataPrevistaRestituzione) {
-    this.studente = studente;
-    this.libro = libro;
-    this.dataInizio = LocalDate.now();
-    this.dataPrevistaRestituzione = dataPrevistaRestituzione;
-    
+        this.studente = studente;
+        this.libro = libro;
+        this.dataInizio = LocalDate.now();
+        this.dataPrevistaRestituzione = dataPrevistaRestituzione;
     }
+
+    public Studente getStudente() {
+        return studente;
+    }
+
+    public Libro getLibro() {
+        return libro;
+    }
+
+    public LocalDate getDataInizio() {
+        return dataInizio;
+    }
+
+    public LocalDate getDataPrevistaRestituzione() {
+        return dataPrevistaRestituzione;
+    }
+
+    public LocalDate getDataRestituzioneEffettiva() {
+        return dataRestituzioneEffettiva;
+    }
+    
     
     public boolean isAttivo() {
         return dataRestituzioneEffettiva == null;
     }
 
     public boolean isInRitardo() {
-        return isAttivo() && LocalDate.now().isAfter(dataPrevistaRestituzione);
+        return false;
     }
 
     public boolean haMulta() {
-        if (dataRestituzioneEffettiva == null) 
-            return false;
-        return dataRestituzioneEffettiva.isAfter(dataPrevistaRestituzione.plusWeeks(2));
+        return false;
     }
 
     public void registraRestituzione(LocalDate dataRestituzione) {
     }
+    
 }

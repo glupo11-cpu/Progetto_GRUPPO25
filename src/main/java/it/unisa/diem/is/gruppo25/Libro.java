@@ -5,19 +5,20 @@
  */
 package it.unisa.diem.is.gruppo25;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
-
-
 public class Libro {
-    
-    private  String titolo;
+
+    private String titolo;
     private String autore;
     private int annoPubblicazione;
     private String codiceIsbn;
     private int copieDisponibili;
 
-    public Libro(String titolo, String autore, int annoPubblicazione, String codiceIsbn, int copieDisponibili) {
+    public Libro(String titolo, String autore, int annoPubblicazione,
+                 String codiceIsbn, int copieDisponibili) {
+        
         this.titolo = titolo;
         this.autore = autore;
         this.annoPubblicazione = annoPubblicazione;
@@ -25,53 +26,51 @@ public class Libro {
         this.copieDisponibili = copieDisponibili;
     }
 
-    public String getTitolo() {
-        return titolo;
+    public String getTitolo() { 
+        return titolo; 
     }
-
-    public void setTitolo(String titolo) {
+    
+    public void setTitolo(String titolo) { 
         this.titolo = titolo;
     }
 
-    public String getAutore() {
-        return autore;
+    public String getAutore() { 
+        return autore; 
     }
-
-    public void setAutore(String autore) {
+    public void setAutore(String autore) { 
         this.autore = autore;
     }
 
-    public int getAnnoPubblicazione() {
-        return annoPubblicazione;
+    public int getAnnoPubblicazione() { 
+        return annoPubblicazione; 
     }
-
-    public void setAnnoPubblicazione(int annoPubblicazione) {
+    
+    public void setAnnoPubblicazione(int annoPubblicazione) { 
         this.annoPubblicazione = annoPubblicazione;
     }
 
-    public String getCodiceIsbn() {
-        return codiceIsbn;
+    public String getCodiceIsbn() { 
+        return codiceIsbn; 
     }
 
-    public int getCopieDisponibili() {
-        return copieDisponibili;
+    public int getCopieDisponibili() { 
+        return copieDisponibili; 
     }
 
-    public void setCopieDisponibili(int copieDisponibili) {
-        this.copieDisponibili = copieDisponibili;
-    }
-    
-    
     public void incrementaCopie() {
     }
 
     public void decrementaCopie() {
     }
 
+    public void setCopieDisponibili(int nuoveCopie) {
+        this.copieDisponibili = copieDisponibili;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 37 * hash + Objects.hashCode(this.codiceIsbn);
+        hash = 67 * hash + Objects.hashCode(this.codiceIsbn);
         return hash;
     }
 
@@ -92,6 +91,6 @@ public class Libro {
         }
         return true;
     }
-    
-    
+
+
 }
