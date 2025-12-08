@@ -16,6 +16,15 @@ public class BibliotecaService {
     private List<Prestito> prestiti = new ArrayList<>();
 
 
+    void salvaDati() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void caricaDati() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     public void inserisciLibro(Libro libro) {
         
     }

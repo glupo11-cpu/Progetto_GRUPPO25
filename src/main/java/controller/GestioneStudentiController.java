@@ -71,6 +71,25 @@ public class GestioneStudentiController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    private void inizializzaBinding() {
+
+    }
+
+    private void inizializzaListenerSelezione() {
+
+    }
+
+    private void aggiornaTabella() {
+
+    }
+
+    private void pulisciCampi() {
+
+    }
+
+    private void mostraErrore(String messaggio) {
+    }
 
     @FXML
     private void homeAct(ActionEvent event) {

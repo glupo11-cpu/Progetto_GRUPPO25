@@ -16,7 +16,7 @@ import javafx.scene.control.Button;
 /**
  * FXML Controller class
  *
- * @author 
+ * 
  */
 public class SchermataInizialeController implements Initializable {
 
@@ -47,4 +47,7 @@ public class SchermataInizialeController implements Initializable {
     private void gestionePrestitiAct(ActionEvent event) {
     }
     
+    private void openScene(String resourcePath, String title) {
+        
+    }
 }

@@ -64,9 +64,27 @@ public class GestionePrestitiController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
 
+    }
+
+    private void inizializzaBinding() {
+
+    }
+
+    private void inizializzaRigaEvidenziata() {
+
+    }
+
+    private void inizializzaListenerSelezione() {
+
+    }
+
+    private void aggiornaTabella() {
+    }
+
+    private void mostraErrore(String messaggio) {
+    }
+    
     @FXML
     private void homeAct(ActionEvent event) {
     }
