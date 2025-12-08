@@ -12,6 +12,10 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+    public static BibliotecaService getBibliotecaService() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @Override
     public void start(Stage stage) {
         String javaVersion = SystemInfo.javaVersion();

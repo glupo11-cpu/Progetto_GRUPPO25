@@ -5,11 +5,14 @@
  */
 package it.unisa.diem.is.gruppo25;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Studente {
+public class Studente implements Serializable{
+    
+    private static final long serialVersionUID = 1L;
     private String nome;
     private String cognome;
     private String matricola;           

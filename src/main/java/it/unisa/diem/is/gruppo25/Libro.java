@@ -5,11 +5,13 @@
  */
 package it.unisa.diem.is.gruppo25;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Libro {
+public class Libro implements Serializable{
 
+    private static final long serialVersionUID = 1L;
     private String titolo;
     private String autore;
     private int annoPubblicazione;

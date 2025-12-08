@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestioneStudentiController">
+   <center>
+      <TableView fx:id="tableView" prefHeight="328.0" prefWidth="483.0" BorderPane.alignment="CENTER">
+         <columns>
+            <TableColumn fx:id="nomeClm" prefWidth="75.0" text="Nome" />
+            <TableColumn fx:id="cognomeClm" prefWidth="87.5" text="Cognome" />
+            <TableColumn fx:id="matricolaClm" prefWidth="79.0" text="Matricola" />
+            <TableColumn fx:id="emailClm" prefWidth="95.0" text="E-mail" />
+            <TableColumn fx:id="libriClm" prefWidth="74.0" text="Prestiti attivi" />
+            <TableColumn fx:id="scadenzaClm" prefWidth="71.5" text="Scadenza" />
+         </columns>
+      </TableView>
+   </center>
+   <right>
+      <VBox prefHeight="328.0" prefWidth="153.0" style="-fx-background-color: F5DEB8;" BorderPane.alignment="CENTER">
+         <children>
+            <GridPane prefHeight="159.0" prefWidth="118.0" vgap="5.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label prefHeight="14.0" prefWidth="41.0" text="Nome">
+                     <font>
+                        <Font name="Forte" size="12.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Cognome" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Forte" size="12.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <Label prefHeight="14.0" prefWidth="79.0" text="Matricola" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Forte" size="12.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <Label text="E-mail" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Forte" size="12.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="nomeTxt" maxWidth="73.0" prefWidth="91.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="cognomeTxt" maxWidth="73.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="matricolaTxt" maxWidth="73.0" prefWidth="81.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="emailTxt" maxWidth="73.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </GridPane>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+               <children>
+                  <Button fx:id="aggiungiBtn" mnemonicParsing="false" onAction="#aggiungiAct" prefHeight="25.0" prefWidth="65.0" text="Aggiungi" />
+                  <Button fx:id="modificaBtn" mnemonicParsing="false" onAction="#modificaAct" prefHeight="25.0" prefWidth="65.0" text="Modifica" />
+                  <Button fx:id="eliminaBtn" mnemonicParsing="false" onAction="#eliminaAct" prefHeight="25.0" prefWidth="65.0" text="Elimina" textFill="#db2c2c" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </right>
+   <top>
+      <StackPane prefHeight="76.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="TOP_LEFT" prefHeight="76.0" prefWidth="637.0" style="-fx-background-color: E6C29A;" text="Benvenuto nella gestione studenti!">
+               <font>
+                  <Font name="Georgia" size="26.0" />
+               </font>
+            </Label>
+            <Button fx:id="homeBtn" mnemonicParsing="false" onAction="#homeAct" text="Torna alla schermata Home" StackPane.alignment="BOTTOM_LEFT">
+               <StackPane.margin>
+                  <Insets bottom="10.0" left="10.0" />
+               </StackPane.margin>
+            </Button>
+            <TextField fx:id="cercaTxt" alignment="TOP_LEFT" maxWidth="250.0" minWidth="158.0" prefHeight="26.0" prefWidth="219.0" promptText="Cerca per Cognome o Matricola" StackPane.alignment="BOTTOM_RIGHT">
+               <StackPane.margin>
+                  <Insets bottom="10.0" right="50.0" />
+               </StackPane.margin>
+            </TextField>
+            <Button fx:id="cercaBtn" alignment="BASELINE_LEFT" contentDisplay="TOP" mnemonicParsing="false" onAction="#cercaAct" prefHeight="26.0" prefWidth="54.0" text="Cerca" textAlignment="CENTER" StackPane.alignment="BOTTOM_RIGHT">
+               <StackPane.margin>
+                  <Insets bottom="10.0" right="3.0" />
+               </StackPane.margin>
+            </Button>
+         </children>
+      </StackPane>
+   </top>
+</BorderPane>

@@ -5,11 +5,13 @@
  */
 package it.unisa.diem.is.gruppo25;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
-public class Prestito {
+public class Prestito implements Serializable{
     
+    private static final long serialVersionUID = 1L;
     private final Studente studente;
     private final Libro libro;
     private final LocalDate dataInizio;

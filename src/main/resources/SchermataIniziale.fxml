@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: # F5DEB8;" stylesheets="@schermata/file.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SchermataInizialeController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+         <children>
+            <TilePane layoutX="-1.0" prefHeight="154.0" prefWidth="600.0">
+               <children>
+                  <Label accessibleRole="IMAGE_VIEW" contentDisplay="CENTER" prefHeight="87.0" prefWidth="599.0" style="-fx-background-color: F5DEB8;" text="Biblioteca Universitaria" textOverrun="CLIP" wrapText="true">
+                     <font>
+                        <Font name="Baskerville Old Face" size="36.0" />
+                     </font>
+                     <effect>
+                        <Lighting diffuseConstant="2.0" surfaceScale="4.86">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
+                     <padding>
+                        <Insets left="130.0" />
+                     </padding>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+               </children>
+            </TilePane>
+            <StackPane layoutX="-1.0" layoutY="87.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="313.0" prefWidth="599.0" spacing="20.0" style="-fx-background-image: url(&quot;https://img.pikbest.com/backgrounds/20250129/bookstore-interior-with-bookshelf-and-sofa-vector-illustration_11469676.jpg!bwr800&quot;); -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-background-size: cover; -fx-background-size: 800px;" stylesheets="@schermata/file.css">
+                     <children>
+                        <Button fx:id="gestioneLibriBtn" mnemonicParsing="false" onAction="#gestioneLibriAct" style="-fx-background-color: FFF3E0;" text="Gestione Libri" textAlignment="CENTER" textFill="#736220">
+                           <font>
+                              <Font name="Microsoft Tai Le Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="gestioneStudentiBtn" mnemonicParsing="false" onAction="#gestioneStudentiAct" style="-fx-background-color: FFF3E0;" text="Gestione Studenti" textFill="#736220">
+                           <font>
+                              <Font name="Microsoft Tai Le Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="gestionePrestitiBtn" mnemonicParsing="false" onAction="#gestionePrestitiAct" style="-fx-background-color: FFF3E0;" text="Gestione Prestiti" textFill="#736220">
+                           <font>
+                              <Font name="Microsoft Tai Le Bold" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </opaqueInsets>
+                     <effect>
+                        <ColorAdjust />
+                     </effect>
+                  </HBox>
+               </children>
+            </StackPane>
+         </children></AnchorPane>
+  </items>
+</SplitPane>
