@@ -36,15 +36,15 @@ public class GestionePrestitiController implements Initializable {
     @FXML 
     private Button cercaBtn;
     @FXML 
-    private TableView<Prestito> tableView; // Specifica del tipo
+    private TableView<Prestito> tableView; 
     @FXML 
-    private TableColumn<Prestito, String> matricolaClm; // Specifica del tipo
+    private TableColumn<Prestito, String> matricolaClm;
     @FXML 
-    private TableColumn<Prestito, String> libroClm; // Specifica del tipo
+    private TableColumn<Prestito, String> libroClm; 
     @FXML 
-    private TableColumn<Prestito, LocalDate> dataPrestitoClm; // Specifica del tipo
+    private TableColumn<Prestito, LocalDate> dataPrestitoClm; 
     @FXML 
-    private TableColumn<Prestito, LocalDate> scadenzaClm; // Specifica del tipo
+    private TableColumn<Prestito, LocalDate> scadenzaClm; 
     @FXML 
     private TextField matricolaTxt;
     @FXML 
