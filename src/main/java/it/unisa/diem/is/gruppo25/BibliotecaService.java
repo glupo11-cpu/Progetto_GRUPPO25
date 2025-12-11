@@ -25,15 +25,47 @@ public class BibliotecaService {
      * @post i dati vengono serializzati e salvati sui rispettivi file tramite Archivio
      */
     void salvaDati() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        ArrayList<Libro> listaLibri = new ArrayList<>(libriPerIsbn.values());
+        ArrayList<Studente> listaStudenti = new ArrayList<>(studentiPerMatricola.values());
+        ArrayList<Prestito> listaPrestiti = new ArrayList<>(prestiti);
+
+        Archivio.scriviLibri(listaLibri);
+        Archivio.scriviStudenti(listaStudenti);
+        Archivio.scriviPrestiti(listaPrestiti);
+        System.out.println("Salvataggio completato.");    }
  /**
      * @brief Carica tutti i dati dai file di archivio.
      * @pre i file di archivio possono esistere o essere mancanti
      * @post le strutture dati interne (libriPerIsbn, studentiPerMatricola, prestiti) vengono popolate
      */
     void caricaDati() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Libro> listaLibri = Archivio.caricaLibri();
+        ArrayList<Studente> listaStudenti = Archivio.caricaStudenti();
+        ArrayList<Prestito> listaPrestiti = Archivio.caricaPrestiti();
+
+        this.libriPerIsbn.clear();
+        for (Libro l : listaLibri) {
+            this.libriPerIsbn.put(l.getCodiceIsbn(), l);
+        }
+
+        this.studentiPerMatricola.clear();
+        for (Studente s : listaStudenti) {
+            s.getPrestitiAttivi().clear();
+            this.studentiPerMatricola.put(s.getMatricola(), s);
+        }
+
+        this.prestiti.clear();
+        for (Prestito p : listaPrestiti) {
+            Studente studenteReale = studentiPerMatricola.get(p.getStudente().getMatricola());
+            
+            if (studenteReale != null) {
+                this.prestiti.add(p);
+                if (p.isAttivo()) {
+                    studenteReale.aggiungiPrestito(p);
+                }
+            }
+        }
+        System.out.println("Caricamento completato.");    
     }
     
      /**
@@ -43,7 +75,8 @@ public class BibliotecaService {
      * @post se il libro non esiste, viene aggiunto; altrimenti le copie vengono aggiornate
      */
     public void inserisciLibro(Libro libro) {
-        
+        if (libriPerIsbn.containsKey(libro.getCodiceIsbn())) throw new IllegalArgumentException("ISBN esistente");
+        libriPerIsbn.put(libro.getCodiceIsbn(), libro);
     }
 /**
      * @brief Modifica i dati di un libro esistente.
@@ -56,7 +89,11 @@ public class BibliotecaService {
      * @post i campi del libro (titolo, autore, anno, copie) vengono aggiornati
      */
     public void modificaLibro(String codiceIsbn, String nuovoTitolo, String nuovoAutore, Integer nuovoAnno, Integer nuoveCopie) {
-        
+        Libro l = getLibroByIsbn(codiceIsbn);
+        if(nuovoTitolo!=null) l.setTitolo(nuovoTitolo);
+        if(nuovoAutore!=null) l.setAutore(nuovoAutore);
+        if(nuovoAnno!=null) l.setAnnoPubblicazione(nuovoAnno);
+        if(nuoveCopie!=null) l.setCopieDisponibili(nuoveCopie);   
     }
 /**
      * @brief Elimina un libro dalla collezione.
@@ -67,7 +104,15 @@ public class BibliotecaService {
      * @post il libro viene rimosso da libriPerIsbn
      */
     public void eliminaLibro(String codiceIsbn) {
-        
+        if (!libriPerIsbn.containsKey(codiceIsbn))
+            throw new NoSuchElementException("Libro non trovato con ISBN: " + codiceIsbn);
+        boolean haPrestitiAttivi = prestiti.stream()
+                .anyMatch(p -> p.isAttivo() && p.getLibro().getCodiceIsbn().equals(codiceIsbn));
+
+        if (haPrestitiAttivi) {
+            throw new IllegalStateException("Impossibile eliminare: il libro ha prestiti attivi.");
+        }
+        libriPerIsbn.remove(codiceIsbn);
     }
 /**
      * @brief Cerca libri in base a titolo, autore o codice ISBN.
@@ -79,7 +124,11 @@ public class BibliotecaService {
      * @post il risultato è un sottoinsieme di libriPerIsbn che corrisponde ai parametri forniti
      */
     public List<Libro> cercaLibri(String titolo, String autore, String codiceIsbn) {
-        return null; 
+        return libriPerIsbn.values().stream()
+                .filter(l -> (titolo == null || l.getTitolo().toLowerCase().contains(titolo.toLowerCase())))
+                .filter(l -> (autore == null || l.getAutore().toLowerCase().contains(autore.toLowerCase())))
+                .filter(l -> (codiceIsbn == null || l.getCodiceIsbn().toLowerCase().contains(codiceIsbn.toLowerCase())))
+                .collect(Collectors.toList()); 
     }
 /**
      * @brief Restituisce l'elenco completo dei libri ordinati per titolo.
@@ -87,8 +136,9 @@ public class BibliotecaService {
      * @post il risultato è una lista di tutti i libri, ordinati
      */
     public List<Libro> elencoLibriOrdinatiPerTitolo() {
-        return null; 
-    }
+        return libriPerIsbn.values().stream()
+                .sorted(Comparator.comparing(Libro::getTitolo))
+                .collect(Collectors.toList());    }
 /**
      * @brief Recupera un libro tramite il suo codice ISBN.
      * @param [in] codiceIsbn l'ISBN del libro
@@ -97,7 +147,11 @@ public class BibliotecaService {
      * @post il risultato è il Libro corrispondente all'ISBN
      */
     private Libro getLibroByIsbn(String codiceIsbn) {
-        return null; 
+        if (codiceIsbn == null) throw new IllegalArgumentException("ISBN non può essere nullo");
+        Libro libro = libriPerIsbn.get(codiceIsbn);
+        if (libro == null)
+            throw new NoSuchElementException("Libro non trovato con ISBN: " + codiceIsbn);
+        return libro;
     }
 
 
@@ -108,6 +162,12 @@ public class BibliotecaService {
      * @post lo studente viene aggiunto alla mappa studentiPerMatricola
      */
     public void inserisciStudente(Studente studente) {   
+        if (studente == null || studente.getMatricola() == null)
+            throw new IllegalArgumentException("Dati studente non validi.");
+        if (studentiPerMatricola.containsKey(studente.getMatricola()))
+            throw new IllegalArgumentException("Matricola già presente: " + studente.getMatricola());
+        
+        studentiPerMatricola.put(studente.getMatricola(), studente);
     }
 /**
      * @brief Modifica i dati di uno studente esistente.
@@ -119,7 +179,10 @@ public class BibliotecaService {
      * @post i campi dello studente (nome, cognome, email) vengono aggiornati
      */
     public void modificaStudente(String matricola, String nuovoNome, String nuovoCognome, String nuovaEmail) {
-        
+        Studente s = getStudenteByMatricola(matricola);
+        if(nuovoNome!=null) s.setNome(nuovoNome);
+        if(nuovoCognome!=null) s.setCognome(nuovoCognome);
+        if(nuovaEmail!=null) s.setEmailIstituzionale(nuovaEmail);
     }
 /**
      * @brief Elimina uno studente dal sistema.
@@ -130,7 +193,11 @@ public class BibliotecaService {
      * @post lo studente viene rimosso da studentiPerMatricola
      */
     public void eliminaStudente(String matricola) {
-        
+        Studente s = getStudenteByMatricola(matricola); 
+        if (!s.getPrestitiAttivi().isEmpty()) {
+            throw new IllegalStateException("Impossibile eliminare: lo studente ha prestiti attivi.");
+        } 
+        studentiPerMatricola.remove(matricola);
     }
 /**
      * @brief Cerca studenti in base a cognome o matricola.
@@ -141,7 +208,10 @@ public class BibliotecaService {
      * @post il risultato è un sottoinsieme di studentiPerMatricola che corrisponde ai parametri forniti
      */
     public List<Studente> cercaStudente(String cognome, String matricola) {
-        return null; 
+        return studentiPerMatricola.values().stream()
+                .filter(s -> (cognome == null || s.getCognome().toLowerCase().contains(cognome.toLowerCase())))
+                .filter(s -> (matricola == null || s.getMatricola().toLowerCase().contains(matricola.toLowerCase())))
+                .collect(Collectors.toList());
     }
 /**
      * @brief Restituisce l'elenco completo degli studenti ordinati.
@@ -150,7 +220,9 @@ public class BibliotecaService {
      * @post il risultato è una lista di tutti gli studenti, ordinati
      */
     public List<Studente> elencoStudentiOrdinati() {
-        return null; 
+        return studentiPerMatricola.values().stream()
+                .sorted(Comparator.comparing(Studente::getCognome))
+                .collect(Collectors.toList());
     }
 /**
      * @brief Recupera uno studente tramite la sua matricola.
@@ -160,7 +232,11 @@ public class BibliotecaService {
      * @post il risultato è lo Studente corrispondente alla matricola
      */
     private Studente getStudenteByMatricola(String matricola) {
-        return null; 
+        if (matricola == null) throw new IllegalArgumentException("Matricola non può essere nulla");
+        Studente studente = studentiPerMatricola.get(matricola);
+        if (studente == null)
+            throw new NoSuchElementException("Studente non trovato con matricola: " + matricola);
+        return studente; 
     }
 
   /**
@@ -178,7 +254,19 @@ public class BibliotecaService {
      */
 
     public Prestito registraPrestito(String matricolaStudente, String codiceIsbn, LocalDate dataPrevistaRestituzione) {
-        return null; 
+        Studente studente = getStudenteByMatricola(matricolaStudente);
+        Libro libro = getLibroByIsbn(codiceIsbn);
+
+        if (libro.getCopieDisponibili() <= 0)
+            throw new IllegalStateException("Nessuna copia disponibile del libro.");
+        if (studente.getPrestitiAttivi().size() >= 3)
+            throw new IllegalStateException("Limite massimo di 3 prestiti attivi per lo studente raggiunto.");
+
+        libro.decrementaCopie();
+        Prestito p = new Prestito(studente, libro, dataPrevistaRestituzione);
+        prestiti.add(p);
+        studente.aggiungiPrestito(p);
+        return p;
     }
 /**
      * @brief Registra la restituzione di un libro.
@@ -192,7 +280,13 @@ public class BibliotecaService {
      * @post le copie disponibili del Libro sono incrementate
      */
     public void registraRestituzione(Prestito prestito, LocalDate dataRestituzione) {
+        if (prestito == null) throw new IllegalArgumentException("Prestito non può essere nullo.");
+        if (!prestito.isAttivo()) throw new IllegalStateException("Prestito già chiuso.");
+        if (dataRestituzione == null) throw new IllegalArgumentException("Data di restituzione non valida.");
         
+        prestito.registraRestituzione(dataRestituzione);
+        prestito.getLibro().incrementaCopie();
+        prestito.getStudente().chiudiPrestito(prestito);
     }
 /**
      * @brief Restituisce l'elenco di tutti i prestiti attivi.
@@ -201,7 +295,10 @@ public class BibliotecaService {
      * @post il risultato contiene solo i prestiti per cui Prestito.isAttivo() == true
      */
     public List<Prestito> elencoPrestitiAttiviOrdinatiPerDataPrevista() {
-        return null; 
+        return prestiti.stream()
+                .filter(Prestito::isAttivo)
+                .sorted(Comparator.comparing(Prestito::getDataPrevistaRestituzione))
+                .collect(Collectors.toList());
     }
 /**
      * @brief Cerca prestiti in base a matricola dello studente o ISBN del libro.
@@ -211,6 +308,10 @@ public class BibliotecaService {
      * @post il risultato è un sottoinsieme di 'prestiti' che corrisponde ai parametri forniti
      */
     public List<Prestito> cercaPrestiti(String matricolaStudente, String codiceIsbn) {
-        return null; 
+        return prestiti.stream()
+                .filter(Prestito::isAttivo)
+                .filter(p -> (matricolaStudente == null || p.getStudente().getMatricola().toLowerCase().contains(matricolaStudente.toLowerCase())))
+                .filter(p -> (codiceIsbn == null || p.getLibro().getCodiceIsbn().toLowerCase().contains(codiceIsbn.toLowerCase())))
+                .collect(Collectors.toList());
     }
 }
