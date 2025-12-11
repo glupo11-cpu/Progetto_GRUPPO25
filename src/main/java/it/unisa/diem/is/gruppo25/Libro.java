@@ -33,7 +33,16 @@ public class Libro implements Serializable{
      */
     public Libro(String titolo, String autore, int annoPubblicazione,
                  String codiceIsbn, int copieDisponibili) {
-        
+        if (titolo == null || titolo.trim().isEmpty())
+            throw new IllegalArgumentException("Titolo mancante o nullo.");
+        if (autore == null || autore.trim().isEmpty())
+            throw new IllegalArgumentException("Autore mancante o nullo.");
+        if (codiceIsbn == null || codiceIsbn.trim().isEmpty())
+            throw new IllegalArgumentException("Codice ISBN mancante o nullo.");
+        if (copieDisponibili < 0)
+            throw new IllegalArgumentException("Le copie disponibili non possono essere negative.");
+        if (annoPubblicazione > LocalDate.now().getYear())
+            throw new IllegalArgumentException("Anno di pubblicazione futuro non valido.");
         this.titolo = titolo;
         this.autore = autore;
         this.annoPubblicazione = annoPubblicazione;
@@ -54,6 +63,8 @@ public class Libro implements Serializable{
      * @post il campo titolo è aggiornato
      */
     public void setTitolo(String titolo) { 
+        if (titolo == null || titolo.trim().isEmpty())
+            throw new IllegalArgumentException("Il titolo non può essere vuoto.");
         this.titolo = titolo;
     }
 /**
@@ -70,6 +81,8 @@ public class Libro implements Serializable{
      * @post il campo autore è aggiornato
      */
     public void setAutore(String autore) { 
+        if (autore == null || autore.trim().isEmpty())
+            throw new IllegalArgumentException("L'autore non può essere vuoto.");
         this.autore = autore;
     }
 /**
@@ -86,6 +99,8 @@ public class Libro implements Serializable{
      * @post il campo annoPubblicazione è aggiornato
      */
     public void setAnnoPubblicazione(int annoPubblicazione) { 
+        if (annoPubblicazione > LocalDate.now().getYear())
+            throw new IllegalArgumentException("L'anno di pubblicazione non può essere futuro.");
         this.annoPubblicazione = annoPubblicazione;
     }
 /**
@@ -110,6 +125,7 @@ public class Libro implements Serializable{
      * @post copieDisponibili = copieDisponibili @pre + 1
      */
     public void incrementaCopie() {
+        this.copieDisponibili++;
     }
 /**
      * @brief Decrementa il numero di copie disponibili.
@@ -118,6 +134,10 @@ public class Libro implements Serializable{
      * @post copieDisponibili = copieDisponibili @pre - 1
      */
     public void decrementaCopie() {
+        if (this.copieDisponibili <= 0) {
+            throw new IllegalStateException("Impossibile decrementare: le copie sono esaurite.");
+        }
+        this.copieDisponibili--;
     }
 /**
      * @brief Imposta direttamente il numero di copie disponibili.
@@ -126,7 +146,10 @@ public class Libro implements Serializable{
      * @post il campo copieDisponibili è aggiornato con nuoveCopie
      */
     public void setCopieDisponibili(int nuoveCopie) {
-        this.copieDisponibili = copieDisponibili;
+        if (nuoveCopie < 0) {
+             throw new IllegalArgumentException("Il numero di copie non può essere negativo.");
+        }
+        this.copieDisponibili = nuoveCopie;
     }
 /**
      * @brief Genera l'hashCode basato sul codice ISBN.
