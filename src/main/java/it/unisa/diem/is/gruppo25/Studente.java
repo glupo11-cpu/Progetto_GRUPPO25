@@ -104,6 +104,19 @@ public class Studente implements Serializable{
     public List<Prestito> getPrestitiAttivi() {
         return prestitiAttivi;
     }
+    public void aggiungiPrestito(Prestito p) {
+        if (prestitiAttivi.size() >= 3) throw new IllegalStateException("Limite prestiti superato");
+        prestitiAttivi.add(p);
+    }
+    public void chiudiPrestito(Prestito p) {
+        boolean rimosso = prestitiAttivi.remove(p);
+        if (!rimosso) {
+            prestitiAttivi.removeIf(curr -> 
+                curr.getLibro().getCodiceIsbn().equals(p.getLibro().getCodiceIsbn()) &&
+                curr.getDataInizio().equals(p.getDataInizio())
+            );
+        }
+    }
 /**
      * @brief Genera l'hashCode basato sulla matricola.
      * @return il valore hash code
