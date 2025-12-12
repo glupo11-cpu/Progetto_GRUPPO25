@@ -7,6 +7,7 @@ package it.unisa.diem.is.gruppo25;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * @brief Rappresenta un prestito di un libro a uno studente.
@@ -109,6 +110,31 @@ public class Prestito implements Serializable{
         if (dataRestituzione == null) throw new IllegalArgumentException("La data di restituzione non può essere nulla.");
 
         this.dataRestituzioneEffettiva = dataRestituzione;
+    }
+    
+        @Override
+
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Prestito prestito = (Prestito) o;
+        return Objects.equals(studente.getMatricola(), prestito.studente.getMatricola()) &&
+
+               Objects.equals(libro.getCodiceIsbn(), prestito.libro.getCodiceIsbn()) &&
+
+               Objects.equals(dataInizio, prestito.dataInizio);
+
+    }
+
+
+
+    @Override
+
+    public int hashCode() {
+
+        return Objects.hash(studente.getMatricola(), libro.getCodiceIsbn(), dataInizio);
+
     }
     
 }
