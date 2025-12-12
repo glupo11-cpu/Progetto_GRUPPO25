@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestioneStudentiController">
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GestioneStudentiController">
    <center>
       <TableView fx:id="tableView" prefHeight="328.0" prefWidth="483.0" BorderPane.alignment="CENTER">
          <columns>

@@ -35,6 +35,7 @@ import it.unisa.diem.is.gruppo25.App;
 import it.unisa.diem.is.gruppo25.BibliotecaService;
 import it.unisa.diem.is.gruppo25.Studente;
 import it.unisa.diem.is.gruppo25.Prestito;
+import java.util.stream.Collectors;
 
 /**
  * FXML Controller class

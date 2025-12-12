@@ -63,7 +63,7 @@ public class GestioneLibriController implements Initializable {
     @FXML 
     private Button aggiungiBtn;
     @FXML 
-    private Button modficaBtn; 
+    private Button modificaBtn; 
     @FXML 
     private Button eliminaBtn;
     
@@ -99,7 +99,7 @@ public class GestioneLibriController implements Initializable {
                         .or(copieTxt.textProperty().isEmpty())
         );
 
-        modficaBtn.disableProperty().bind(
+        modificaBtn.disableProperty().bind(
                 tableView.getSelectionModel().selectedItemProperty().isNull()
                         .or(titoloTxt.textProperty().isEmpty())
                         .or(autoreTxt.textProperty().isEmpty())
@@ -200,7 +200,7 @@ public class GestioneLibriController implements Initializable {
     }
 
     @FXML
-    private void modficaAct(ActionEvent event) { 
+    private void modificaAct(ActionEvent event) { 
         Libro selezionato = tableView.getSelectionModel().getSelectedItem();
         if (selezionato == null) {
             return;
