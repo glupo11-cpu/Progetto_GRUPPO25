@@ -45,7 +45,7 @@
             </TilePane>
             <StackPane layoutX="-1.0" layoutY="87.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="313.0" prefWidth="599.0" spacing="20.0" style="-fx-background-image: url(&quot;https://img.pikbest.com/backgrounds/20250129/bookstore-interior-with-bookshelf-and-sofa-vector-illustration_11469676.jpg!bwr800&quot;); -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-background-size: cover; -fx-background-size: 800px;" stylesheets="@schermata/file.css">
+                  <HBox alignment="CENTER" prefHeight="313.0" prefWidth="599.0" spacing="20.0" style="-fx-background-image: url('immagini/libreria.jpg'); -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-background-size: cover; -fx-background-size: 800px;" stylesheets="@schermata/file.css">
                      <children>
                         <Button fx:id="gestioneLibriBtn" mnemonicParsing="false" onAction="#gestioneLibriAct" style="-fx-background-color: FFF3E0;" text="Gestione Libri" textAlignment="CENTER" textFill="#736220">
                            <font>

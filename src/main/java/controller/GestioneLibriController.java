@@ -1,4 +1,4 @@
-package controller; // Package corretto
+package controller; 
 
 import it.unisa.diem.is.gruppo25.App;
 import it.unisa.diem.is.gruppo25.BibliotecaService;
