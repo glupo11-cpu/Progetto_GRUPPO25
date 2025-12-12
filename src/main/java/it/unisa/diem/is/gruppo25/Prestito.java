@@ -94,16 +94,9 @@ public class Prestito implements Serializable{
      * @post il risultato è true se isAttivo() == true AND dataPrevistaRestituzione è nel passato rispetto alla data corrente
      */
     public boolean isInRitardo() {
-        return false;
+        return isAttivo() && LocalDate.now().isAfter(dataPrevistaRestituzione);
     }
-/**
-     * @brief Verifica se lo studente ha una multa.
-     * @return true se c'è una multa, false altrimenti
-     * @post il risultato è true se è stata generata una multa per questo prestito
-     */
-    public boolean haMulta() {
-        return false;
-    }
+
 /**
      * @brief Registra l'avvenuta restituzione del libro.
      * Imposta la data di restituzione effettiva.
@@ -113,6 +106,9 @@ public class Prestito implements Serializable{
      * @post isAttivo() == false
      */
     public void registraRestituzione(LocalDate dataRestituzione) {
+        if (dataRestituzione == null) throw new IllegalArgumentException("La data di restituzione non può essere nulla.");
+
+        this.dataRestituzioneEffettiva = dataRestituzione;
     }
     
 }
