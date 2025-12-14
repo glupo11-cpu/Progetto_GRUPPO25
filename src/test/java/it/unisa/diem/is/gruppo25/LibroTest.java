@@ -93,4 +93,18 @@ public class LibroTest {
     private Libro creaLibroBase() {
         return new Libro("Titolo", "Autore", 2000, "ISBN001", 2);
     }
+    @Test
+    public void testSetCopieDisponibiliValido() {
+        Libro libro = creaLibroBase();
+        libro.setCopieDisponibili(10);
+        assertEquals(10, libro.getCopieDisponibili());
+    }
+
+    @Test
+    public void testSetCopieDisponibiliNegativo() {
+        Libro libro = creaLibroBase();
+        assertThrows(IllegalArgumentException.class, () -> {
+            libro.setCopieDisponibili(-1);
+        });
+    }
 }
