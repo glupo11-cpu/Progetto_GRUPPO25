@@ -150,7 +150,7 @@ public class BibliotecaService {
         if (codiceIsbn == null) throw new IllegalArgumentException("ISBN non può essere nullo");
         Libro libro = libriPerIsbn.get(codiceIsbn);
         if (libro == null)
-            throw new NoSuchElementException("Libro non trovato con ISBN: " + codiceIsbn);
+            throw new IllegalArgumentException("Libro non trovato con ISBN: " + codiceIsbn);
         return libro;
     }
 
@@ -235,7 +235,7 @@ public class BibliotecaService {
         if (matricola == null) throw new IllegalArgumentException("Matricola non può essere nulla");
         Studente studente = studentiPerMatricola.get(matricola);
         if (studente == null)
-            throw new NoSuchElementException("Studente non trovato con matricola: " + matricola);
+            throw new IllegalArgumentException("Studente non trovato con matricola: " + matricola);
         return studente; 
     }
 
