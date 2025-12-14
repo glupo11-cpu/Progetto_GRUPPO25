@@ -108,12 +108,19 @@ public class Prestito implements Serializable{
      */
     public void registraRestituzione(LocalDate dataRestituzione) {
         if (dataRestituzione == null) throw new IllegalArgumentException("La data di restituzione non può essere nulla.");
-
         this.dataRestituzioneEffettiva = dataRestituzione;
     }
     
-        @Override
-
+    
+    /**
+     * @brief Confronta due oggetti Prestito per verificarne l'uguaglianza.
+     * Due prestiti sono considerati uguali se hanno lo stesso studente (matricola),
+     * lo stesso libro (codice ISBN) e la stessa data di inizio.
+     * @param [in] o l'oggetto da confrontare
+     * @return true se i due prestiti sono uguali, false altrimenti
+     * @post restituisce true solo se studente, libro e dataInizio coincidono
+     */
+    @Override
     public boolean equals(Object o) {
 
         if (this == o) return true;
@@ -128,11 +135,16 @@ public class Prestito implements Serializable{
     }
 
 
-
+    /**
+     * @brief Genera l'hash code del prestito.
+     * L'hash code è calcolato combinando matricola dello studente,
+     * codice ISBN del libro e data di inizio del prestito.
+     * @return il valore hash code
+     * @post restituisce un intero coerente con il metodo equals
+     */
+    
     @Override
-
     public int hashCode() {
-
         return Objects.hash(studente.getMatricola(), libro.getCodiceIsbn(), dataInizio);
 
     }

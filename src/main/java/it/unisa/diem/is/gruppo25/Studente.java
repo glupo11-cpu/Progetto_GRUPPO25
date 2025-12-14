@@ -21,7 +21,7 @@ public class Studente implements Serializable{
     private String matricola;           
     private String emailIstituzionale;
     private List<Prestito> prestitiAttivi = new ArrayList<>();
-/**
+    /**
      * @brief Costruisce un nuovo oggetto Studente.
      * @param [in] nome il nome dello studente
      * @param [in] cognome il cognome dello studente
@@ -37,7 +37,7 @@ public class Studente implements Serializable{
         this.matricola = matricola;
         this.emailIstituzionale = emailIstituzionale;
     }
-/**
+    /**
      * @brief Restituisce il nome dello studente.
      * @return il nome
      * @post il risultato è il nome dello studente
@@ -45,7 +45,7 @@ public class Studente implements Serializable{
     public String getNome() {
         return nome;
     }
-/**
+    /**
      * @brief Imposta il nome dello studente.
      * @param [in] nome il nuovo nome
      * @pre nome != null
@@ -54,7 +54,7 @@ public class Studente implements Serializable{
     public void setNome(String nome) {
         this.nome = nome;
     }
-/**
+    /**
      * @brief Restituisce il cognome dello studente.
      * @return il cognome
      * @post il risultato è il cognome dello studente
@@ -62,7 +62,7 @@ public class Studente implements Serializable{
     public String getCognome() {
         return cognome;
     }
-/**
+    /**
      * @brief Imposta il cognome dello studente.
      * @param [in] cognome il nuovo cognome
      * @pre cognome != null
@@ -71,7 +71,7 @@ public class Studente implements Serializable{
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
-/**
+    /**
      * @brief Restituisce l'email istituzionale dello studente.
      * @return l'email istituzionale
      * @post il risultato è l'email istituzionale dello studente
@@ -79,7 +79,7 @@ public class Studente implements Serializable{
     public String getEmailIstituzionale() {
         return emailIstituzionale;
     }
-/**
+    /**
      * @brief Imposta l'email istituzionale dello studente.
      * @param [in] emailIstituzionale la nuova email
      * @pre emailIstituzionale != null
@@ -88,7 +88,7 @@ public class Studente implements Serializable{
     public void setEmailIstituzionale(String emailIstituzionale) {
         this.emailIstituzionale = emailIstituzionale;
     }
-/**
+    /**
      * @brief Restituisce la matricola dello studente.
      * @return la matricola
      * @post il risultato è la matricola dello studente
@@ -96,7 +96,7 @@ public class Studente implements Serializable{
     public String getMatricola() {
         return matricola;
     }
-/**
+    /**
      * @brief Restituisce la lista dei prestiti attualmente attivi.
      * @return la lista dei prestiti attivi
      * @post il risultato è la lista dei prestiti non ancora restituiti associati a questo studente
@@ -104,10 +104,29 @@ public class Studente implements Serializable{
     public List<Prestito> getPrestitiAttivi() {
         return prestitiAttivi;
     }
+    
+    /**
+     * @brief Aggiunge un prestito alla lista dei prestiti attivi dello studente.
+     * Lo studente non può avere più di 3 prestiti attivi contemporaneamente.
+     * @param [in] p il prestito da aggiungere
+     * @pre p != null AND prestitiAttivi.size() < 3
+     * @post il prestito p è stato aggiunto a prestitiAttivi
+     * @throws IllegalStateException se il numero massimo di prestiti attivi è già raggiunto
+     */
+    
     public void aggiungiPrestito(Prestito p) {
         if (prestitiAttivi.size() >= 3) throw new IllegalStateException("Limite prestiti superato");
         prestitiAttivi.add(p);
     }
+    
+    /**
+     * @brief Rimuove un prestito dalla lista dei prestiti attivi dello studente.
+     * Se il prestito non viene trovato tramite equals, viene rimosso confrontando codice ISBN e data di inizio.
+     * @param [in] p il prestito da rimuovere
+     * @pre p != null
+     * @post il prestito p non è più presente in prestitiAttivi
+     */
+    
     public void chiudiPrestito(Prestito p) {
         boolean rimosso = prestitiAttivi.remove(p);
         if (!rimosso) {
@@ -117,7 +136,7 @@ public class Studente implements Serializable{
             );
         }
     }
-/**
+    /**
      * @brief Genera l'hashCode basato sulla matricola.
      * @return il valore hash code
      */
@@ -127,7 +146,7 @@ public class Studente implements Serializable{
         hash = 37 * hash + Objects.hashCode(this.matricola);
         return hash;
     }
-/**
+    /**
      * @brief Confronta due oggetti Studente per l'uguaglianza.
      * Il confronto si basa sulla matricola.
      * @param [in] obj l'oggetto da confrontare

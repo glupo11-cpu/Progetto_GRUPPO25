@@ -1,12 +1,15 @@
 package it.unisa.diem.is.gruppo25;
 
+import java.io.File;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import org.junit.jupiter.api.AfterEach;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
 
 class BibliotecaServiceTest {
 
@@ -26,6 +29,18 @@ class BibliotecaServiceTest {
     }
 
 
+    @BeforeAll
+    static void initTestFiles() {
+        Archivio.fileLibri = "target/test-libri.bin";
+        Archivio.fileStudenti = "target/test-studenti.bin";
+        Archivio.filePrestiti = "target/test-prestiti.bin";
+    }
+    @AfterEach
+    void cleanup() {
+        new File(Archivio.fileLibri).delete();
+        new File(Archivio.fileStudenti).delete();
+        new File(Archivio.filePrestiti).delete();
+}
 
     @Test
     void testInserisciLibro() {
