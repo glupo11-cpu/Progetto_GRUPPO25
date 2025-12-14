@@ -248,14 +248,22 @@ public class GestioneStudentiController implements Initializable {
 
     @FXML
     private void eliminaAct(ActionEvent event) {
-        Studente selezionato = tableView.getSelectionModel().getSelectedItem();
+Studente selezionato = tableView.getSelectionModel().getSelectedItem();
         if (selezionato == null) {
             return;
         }
 
+        String nome = selezionato.getNome();
+        String cognome = selezionato.getCognome();
+        String matricola = selezionato.getMatricola();
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Conferma eliminazione");
         alert.setHeaderText("Eliminare lo studente selezionato?");
+        alert.setContentText(
+                "Nome: " + nome + " " + cognome + "\n" +
+                "Matricola: " + matricola
+        );
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -269,6 +277,6 @@ public class GestioneStudentiController implements Initializable {
                 mostraErrore("Errore generico: " + e.getMessage());
             }
         }
-    }
     
+}
 }

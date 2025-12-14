@@ -236,21 +236,31 @@ public class GestionePrestitiController implements Initializable {
 
     @FXML
     private void restituzioneAct(ActionEvent event) {
-        Prestito selezionato = tableView.getSelectionModel().getSelectedItem();
+Prestito selezionato = tableView.getSelectionModel().getSelectedItem();
         if (selezionato == null) {
             return;
         }
 
+        // Recupero i dati del prestito per l'alert
+        String matricola = selezionato.getStudente().getMatricola();
+        String isbn = selezionato.getLibro().getCodiceIsbn();
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Conferma restituzione");
         alert.setHeaderText("Registrare la restituzione del libro?");
+
+        // Aggiungo Matricola e ISBN al corpo del messaggio
+        alert.setContentText(
+                "Matricola: " + matricola + "\n" +
+                "Libro (ISBN): " + isbn
+        );
 
         if (alert.showAndWait().orElse(ButtonType.CANCEL) != ButtonType.OK) {
             return;
         }
 
         try {
-            LocalDate dataRestituzione = LocalDate.now(); 
+            LocalDate dataRestituzione = LocalDate.now();
             service.registraRestituzione(selezionato, dataRestituzione);
             aggiornaTabella();
         } catch (IllegalStateException e) {
@@ -258,7 +268,7 @@ public class GestionePrestitiController implements Initializable {
         } catch (Exception e) {
             mostraErrore("Errore generico: " + e.getMessage());
         }
-    }
     
     
+}
 }

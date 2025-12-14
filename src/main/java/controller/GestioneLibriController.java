@@ -229,14 +229,24 @@ public class GestioneLibriController implements Initializable {
 
     @FXML
     private void eliminaAct(ActionEvent event) {
-        Libro selezionato = tableView.getSelectionModel().getSelectedItem();
+Libro selezionato = tableView.getSelectionModel().getSelectedItem();
         if (selezionato == null) {
             return;
         }
 
+        String titolo = selezionato.getTitolo();
+        String autore = selezionato.getAutore();
+        String isbn = selezionato.getCodiceIsbn();
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Conferma eliminazione");
         alert.setHeaderText("Eliminare il libro selezionato?");
+        
+        alert.setContentText(
+                "Titolo: " + titolo + "\n" +
+                "Autore: " + autore + "\n" +
+                "ISBN: " + isbn
+        );
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -250,7 +260,6 @@ public class GestioneLibriController implements Initializable {
                 mostraErrore("Errore generico durante l'eliminazione: " + e.getMessage());
             }
         }
-    
-    }
+}
 }
     
