@@ -241,7 +241,6 @@ Prestito selezionato = tableView.getSelectionModel().getSelectedItem();
             return;
         }
 
-        // Recupero i dati del prestito per l'alert
         String matricola = selezionato.getStudente().getMatricola();
         String isbn = selezionato.getLibro().getCodiceIsbn();
 
@@ -249,7 +248,6 @@ Prestito selezionato = tableView.getSelectionModel().getSelectedItem();
         alert.setTitle("Conferma restituzione");
         alert.setHeaderText("Registrare la restituzione del libro?");
 
-        // Aggiungo Matricola e ISBN al corpo del messaggio
         alert.setContentText(
                 "Matricola: " + matricola + "\n" +
                 "Libro (ISBN): " + isbn

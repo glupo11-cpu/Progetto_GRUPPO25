@@ -36,7 +36,6 @@ public class SchermataInizialeController implements Initializable {
   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Nessuna inizializzazione specifica necessaria
     } 
     
     @FXML
